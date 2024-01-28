@@ -8,20 +8,14 @@ plt.rcParams.update({
 })
 
 def plot_dataset(walking_ds, squatting_ds, var="x"):
-    labelsize = 12
-    fig, ax = plt.subplots(1, 2, figsize=(15, 5))
-    ax[0].plot(walking_ds[var], label="walking")
-    ax[0].plot(squatting_ds[var], label="squatting")
-    ax[0].set_xlabel(f"$time[s]$", fontsize=labelsize)
-    ax[0].set_ylabel(f"${var}-acceleration [m/s^2]$", fontsize=labelsize)
-    ax[0].legend()
-    ax[1].plot(walking_ds[var], label="walking")
-    ax[1].plot(squatting_ds[var], label="squatting")
-    ax[1].set_xlabel(f"$time[s]$", fontsize=labelsize)
-    ax[1].set_ylabel(f"${var}-acceleration [m/s^2]$", fontsize=labelsize)
-    ax[1].legend()
-    ax[0].grid()
-    ax[1].grid()
+    labelsize = 14
+    fig, ax = plt.subplots(figsize=(6, 5))
+    ax.plot(walking_ds[var], label="walking")
+    ax.plot(squatting_ds[var], label="squatting")
+    ax.set_xlabel(f"$time[s]$", fontsize=labelsize)
+    ax.set_ylabel(f"${var}-acceleration [m/s^2]$", fontsize=labelsize)
+    ax.legend()
+    ax.grid()
     return fig
 
 if __name__ == "__main__":
