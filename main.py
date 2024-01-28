@@ -13,7 +13,7 @@ import wandb
 # Input arguments before running the script
 parser = argparse.ArgumentParser()
 parser.add_argument("--num_classes", type = int, default = 2)
-parser.add_argument("--series_len", type = int, default = 100)
+parser.add_argument("--series_len", type = int, default = 500)
 parser.add_argument("--hidden_size", type = int, default = 128)
 parser.add_argument("--num_layers", type = int, default = 1)
 parser.add_argument("--epochs", type = int, default = 500)
