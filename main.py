@@ -12,13 +12,14 @@ import wandb
 
 # Input arguments before running the script
 parser = argparse.ArgumentParser()
-parser.add_argument("--num_classes", type=int, default=2)
-parser.add_argument("--series_len", type=int, default=100)
-parser.add_argument("--hidden_size", type=int, default=128)
-parser.add_argument("--num_layers", type=int, default=1)
-parser.add_argument("--epochs", type=int, default=500)
-parser.add_argument("--lr", type=float, default=0.001)
-parser.add_argument("--seed", type=int, default=42)
+parser.add_argument("--num_classes", type = int, default = 2)
+parser.add_argument("--series_len", type = int, default = 100)
+parser.add_argument("--hidden_size", type = int, default = 128)
+parser.add_argument("--num_layers", type = int, default = 1)
+parser.add_argument("--epochs", type = int, default = 500)
+parser.add_argument("--lr", type = float, default = 0.001)
+parser.add_argument("--seed", type = int, default = 42)
+parser.add_argument("--train_size", type = float, default = 0.8)
 parser.add_argument("--device", 
                     type=torch.device, 
                     default=torch.cuda.is_available() and torch.device("cuda") or torch.device("cpu"))
@@ -76,14 +77,13 @@ if __name__ == "__main__":
     wandb.config.update(args)
 
     # Datasets preparation
-    train_size = 0.8
     walking_ds = pd.read_csv("data/walking/Accelerometer.csv", parse_dates=True)
     squatting_ds = pd.read_csv("data/squatting/Accelerometer.csv", parse_dates=True)
     X_walking, y_walking = prepare_data(args.series_len, walking_ds, 0)
     X_squatting, y_squatting = prepare_data(args.series_len, squatting_ds, 1)
     X = np.vstack((X_walking, X_squatting))
     y = np.hstack((y_walking, y_squatting))
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size, shuffle=True)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=args.train_size, shuffle=True)
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
